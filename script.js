@@ -244,13 +244,17 @@ button[23].onclick = () => {
 button[24].onclick = () => {
     let exp = user_input.textContent;
     //check for syntax error in expression
-    if ((exp.split("(").length - 1 != exp.split(")").length - 1) || (/^[\*\-\/\+]/.test(exp)) || (/[\*\-\/\+]$/.test(exp)) || 
-    /[\*\/\-\+]{2,}/.test(exp) || /\d\(/.test(exp) || /\)\d/.test(exp) || /\^\^/.test(exp) || /[\/,*+\-]\^/.test(exp) || 
-    /\^[\/,*+\-]/.test(exp))
-    {
-        user_output.textContent = "Syntax Error!";
-    }
+    if(exp.split("(").length - 1 != exp.split(")").length - 1)
+        user_output.textContent = "Syntax Error! Unbalanced brackets";
 
+    if(/^[\*\-\/\+]/.test(exp) || /[\*\-\/\+]$/.test(exp) || /[\*\/\-\+]{2,}/.test(exp))
+        user_output.textContent = "Syntax Error! Misplaced operator";
+
+    if(/\d\(/.test(exp) || /\)\d/.test(exp))
+        user_output.textContent = "Syntax Error! Operator not mentioned";
+
+    if(/\^\^+/.test(exp) || /[\/,*+\-]\^/.test(exp) || /\^[\/,*+\-]/.test(exp))
+        user_output.textContent = "Syntax Error! Consecutive operators";
 
     //convert exp into a format processable by eval()
     exp = exp.replace(/10e\(/g, "Math.pow(10,");
