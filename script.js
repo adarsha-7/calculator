@@ -26,14 +26,16 @@ button_1_2.onclick = () => {
 
 button[2].onclick = () => {
     const exp = user_input.textContent;
+    if (!(/[+\-\*/]/.test(exp)))
+        user_input.textContent = "";
     for(let i = exp.length-1; i >= 0; i--) 
-        { 
-            if (/[+\-\*/]/.test(exp[i]))
-                {
-                    user_input.textContent = user_input.textContent.slice(0, i+1);
-                    break;
-                } 
-        }
+    { 
+        if (/[+\-\*/]/.test(exp[i]))
+            {
+                user_input.textContent = user_input.textContent.slice(0, i+1);
+                break;
+            } 
+    }
 }
 
 button[3].onclick = () => {
